@@ -26,6 +26,7 @@ export const extensionStore = defineStore('extensions', {
     getExtensions() {
       vscode.postMessage(new Msg(Cmd.getExtensions), (data: string) => {
         this.extensionArray = <Extension[]>JSON.parse(data);
+        console.log(this.extensionArray);
         this.updatePage.extensionList = <Extension[]>JSON.parse(data);
       });
     },

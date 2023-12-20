@@ -19,7 +19,7 @@ export class ExtensionManagerPanel {
      * Renders the current webview panel if it exists otherwise a new webview panel
      * will be created and displayed.
      *
-     * @param extensionUri The URI of the directory containing the extension.
+     * @param extensionUri The UR2I of the directory containing the extension.
      */
     public static render(extensionUri: Uri) {
         if (ExtensionManagerPanel.currentPanel) {

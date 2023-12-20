@@ -1,7 +1,10 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useRouter } from "vue-router";
 import { extensionStore } from "../store";
 import ExtensionList from "../components/ExtensionList.vue";
+import { NEmpty, NAvatar } from 'naive-ui';
+
 import { Cmd, Extension, Msg, vscode, getExtensionId, Res, ExtensionPackage, extensionsPostResolver, uploadFile } from "../utils";
 import {
     provideVSCodeDesignSystem,
@@ -24,7 +27,7 @@ const fileButton = ref<HTMLElement>();
 function back() {
     store.updatePage.currentExtension = new Extension(new ExtensionPackage());
     store.updatePage.isUpdate = false;
-    router.push("/home");
+    router.replace("/home");
 }
 
 function delfromList(item: Extension) {
@@ -53,7 +56,7 @@ function create() {
 
         if (<Res>JSON.parse(res).success) {
             store.getExtensions();
-            router.push("/home");
+            router.replace("/home");
             store.updatePage.currentExtension = new Extension();
             store.updatePage.isUpdate = false;
         }
@@ -67,22 +70,27 @@ function imgResolver(reader: FileReader, file: File) {
     };
 
 }
+console.log(store.updatePage.extensionPack)
+const extensionList = computed(() => {
+    return store.updatePage.extensionList;
+})
 </script>
 
 <template>
-    <input style="display: none" id="file" ref="fileButton" type="file" @change="uploadFile($event, imgResolver)"
+    <input v-show="false" id="file" ref="fileButton" type="file" @change="uploadFile($event, imgResolver)"
         accept="image/*" />
 
-    <div class="outer">
+    <div class="outer px-12px">
         <div class="leftWrap">
             <h2 style="text-align: center;">Extension List</h2>
-            <ExtensionFilter :extensionList="store.updatePage.extensionList"></ExtensionFilter>
+            <ExtensionFilter :extensionList="extensionList"></ExtensionFilter>
             <div class="left">
-                <ExtensionList :extensions="store.updatePage.extensionList" @itemClick="delfromList" />
+                <ExtensionList :extensions="extensionList" @itemClick="delfromList" />
             </div>
         </div>
         <div class="middle">
-            <img :src="store.currentImg" draggable="false" class="icon" @click="fileButton?.click()">
+            <n-avatar round shadow-lg cursor-pointer size="large" :src="store.currentImg" draggable="false" class="icon"
+                @click="fileButton?.click()" />
             <div class="info">
                 <div class="displayName">
                     <h2 style="line-height: 0;text-align: center;">DisplayName</h2>
@@ -112,7 +120,9 @@ function imgResolver(reader: FileReader, file: File) {
             <h2 style="text-align: center;">Extension Pack</h2>
             <ExtensionFilter :extensionList="store.updatePage.extensionPack"></ExtensionFilter>
             <div class="right">
-                <ExtensionList :extensions="store.updatePage.extensionPack" @itemClick="delFromPack" />
+                <ExtensionList v-if="store.updatePage.extensionPack.length" :extensions="store.updatePage.extensionPack"
+                    @itemClick="delFromPack" />
+                <n-empty mt-20px v-else description="Empty!"> </n-empty>
             </div>
         </div>
     </div>
@@ -121,7 +131,7 @@ function imgResolver(reader: FileReader, file: File) {
 
 <style scoped lang="less">
 @outerHeight: 100vh;
-@outerWidth: 1000px;
+@outerWidth: 100%;
 
 
 .alignHorizontal(@height, @width) {

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import "animate.css"
 </script>
 
 <template>
@@ -21,6 +22,7 @@
   opacity: 0;
   transform: translateY(100px);
 }
+
 body {
   overflow: hidden;
   user-select: none;

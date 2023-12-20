@@ -9,6 +9,16 @@ const matchCase = ref(false);
 const matchWholeWord = ref(false);
 const matchReg = ref(false);
 
+import {
+    provideVSCodeDesignSystem,
+    vsCodeDropdown,
+    vsCodeOption
+} from "@vscode/webview-ui-toolkit";
+
+provideVSCodeDesignSystem().register(
+    vsCodeDropdown(),
+    vsCodeOption()
+);
 
 function filterFunc(str: string, keyWord?: string): boolean {
     //字符串为空
@@ -54,8 +64,11 @@ function searchFunc() {
 </script>
 <template>
     <vscode-text-field class="filter" ref="filterEl" @input="searchFunc">
-        <span slot="start" class="codicon codicon-search"></span>
-        <section slot="end" style="display:flex; align-items: center;">
+        <div slot="start" class="">
+            <span class="codicon codicon-search cursor-pointer"></span>
+        </div>
+
+        <section slot="end" flex items-center>
             <div :class="{ filterButton: true, focusButton: matchCase }" aria-label="Match Case"
                 @click="() => { matchCase = !matchCase; searchFunc(); }">
                 <SimpleTip content="Match Case" top="-32px" height="15px" width="65px" padding-top="1px" right="-28px">
@@ -108,4 +121,5 @@ function searchFunc() {
         border: 1px solid var(--vscode-inputOption-activeBorder);
         .baseStyle();
     }
-}</style>
+}
+</style>
