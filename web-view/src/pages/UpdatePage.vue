@@ -4,6 +4,7 @@ import { useRouter } from "vue-router";
 import { extensionStore } from "../store";
 import ExtensionList from "../components/ExtensionList.vue";
 import { NEmpty, NAvatar } from 'naive-ui';
+import { CloudUploadOutline } from "@vicons/ionicons5"
 
 import { Cmd, Extension, Msg, vscode, getExtensionId, Res, ExtensionPackage, extensionsPostResolver, uploadFile } from "../utils";
 import {
@@ -70,7 +71,6 @@ function imgResolver(reader: FileReader, file: File) {
     };
 
 }
-console.log(store.updatePage.extensionPack)
 const extensionList = computed(() => {
     return store.updatePage.extensionList;
 })
@@ -89,8 +89,12 @@ const extensionList = computed(() => {
             </div>
         </div>
         <div class="middle">
-            <n-avatar round shadow-lg cursor-pointer size="large" :src="store.currentImg" draggable="false" class="icon"
-                @click="fileButton?.click()" />
+            <div relative flex items-center justify-center rounded-full w-128px h-128px m-auto cursor-pointer @click="fileButton?.click()">
+                <n-icon absolute text-18px w-50px z-1 filter-grayscale-10 cursor-pointer text="#999" size="40" :depth="3">
+                    <CloudUploadOutline></CloudUploadOutline>
+                </n-icon>
+                <div bg="#333" rounded-full absolute z-2 w-128px h-128px bg-opacity-20></div>
+            </div>
             <div class="info">
                 <div class="displayName">
                     <h2 style="line-height: 0;text-align: center;">DisplayName</h2>

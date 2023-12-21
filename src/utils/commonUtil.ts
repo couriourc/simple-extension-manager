@@ -3,12 +3,12 @@ import { ExtensionContext } from 'vscode';
 
 export function showErrMsg(msg: string) {
     window.showErrorMessage(msg);
-    console.log(msg);
+    console.error(msg);
 }
 
 export function showInfoMsg(msg: string) {
     window.showInformationMessage(msg);
-    console.log(msg);
+    console.error(msg);
 }
 
 export async function showWaringMsg(msg: string, ...selects: string[]) {

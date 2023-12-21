@@ -63,8 +63,9 @@ function searchFunc() {
 }
 </script>
 <template>
+  
     <vscode-text-field class="filter" ref="filterEl" @input="searchFunc">
-        <div slot="start" class="">
+        <div slot="start" class="mt-4px">
             <span class="codicon codicon-search cursor-pointer"></span>
         </div>
 

@@ -122,7 +122,7 @@ export async function bulkCreate(newExtensionPcks: Extension[]) {
         await writeFilePromise(join(State.rootPath, "extensions.json"), JSON.stringify(extensionRegisterInfos), "utf8");
         await Promise.all(tasks);
     } catch (error) {
-        console.log("1:", error);
+        console.error("1:", error);
     }
 }
 export async function createExtension(finalExtension: Extension) {
@@ -135,7 +135,7 @@ export async function createExtension(finalExtension: Extension) {
         writeFilePromise(join(dirPath, "logo.png"), Buffer.from(finalExtension.img, "base64"));
         writeFilePromise(join(dirPath, "README.md"), finalExtension.readme, "utf8");
     } catch (error) {
-        console.log("2:", error);
+        console.error("2:", error);
 
     }
 }

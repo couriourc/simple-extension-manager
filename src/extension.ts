@@ -16,13 +16,7 @@ export function activate(context: ExtensionContext) {
 		commands.registerCommand("simple-extension-manager.manage.ExtensionPack", async () => {
 			State.rootPath = rootPath;
 			State.context = context;
-			if (IS_DEVELOPMENT_MODE) {
-				ExtensionManagerPanel.render(context.extensionUri);
-				console.log(context.extensionUri)
-				// ExtensionManagerPanel.render(Uri.parse("http://localhost:5173/"));
-			} else {
-				ExtensionManagerPanel.render(context.extensionUri);
-			}
+			ExtensionManagerPanel.render(context.extensionUri);
 		})
 	);
 

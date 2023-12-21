@@ -72,7 +72,7 @@ class VSCodeAPIWrapper {
       }
       this.vsCodeApi.postMessage(message);
     } else {
-      console.log(message);
+      console.error(message);
     }
   }
 
